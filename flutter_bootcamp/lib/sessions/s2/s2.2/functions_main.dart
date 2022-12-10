@@ -1,4 +1,4 @@
-import 'package:flutter_bootcamp/sessions/s2.2/functions.dart';
+import 'package:flutter_bootcamp/sessions/s2/s2.2/functions.dart';
 
 void main() {
   var func = Functions();

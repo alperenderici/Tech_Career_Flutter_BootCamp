@@ -1,4 +1,4 @@
-import 'package:flutter_bootcamp/sessions/s2.2/car.dart';
+import 'package:flutter_bootcamp/sessions/s2/s2.2/car.dart';
 
 void main() {
   var bmw = Car(color: "Blue", speed: 100, isWorking: true);
