@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bootcamp/sessions/s5/homepage.dart';
+import 'package:flutter_bootcamp/homeworks/hw4/homepage.dart';
+
+// import 'package:flutter_bootcamp/homeworks/hw3/theme.dart';
 
 void main() => runApp(const MyApp());
 
@@ -11,10 +13,8 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Material App',
-      theme: ThemeData(
-        primaryColor: Colors.blue,
-      ),
-      home: const Homepage(),
+      // theme: themeData(),
+      home: HomePage(),
     );
   }
 }
