@@ -51,7 +51,6 @@ class _HomePageState extends State<HomePage> {
                   },
                   child: const Text("Image 1"),
                 ),
-                // Image.asset("assets/images/$imageName"),
                 SizedBox(
                   width: 48,
                   height: 48,
