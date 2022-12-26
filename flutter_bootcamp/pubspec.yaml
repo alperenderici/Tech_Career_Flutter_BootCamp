@@ -65,7 +65,8 @@ flutter:
     - assets/images/aloe-vera.png #homework 3. image
     - assets/images/image1.png #session 7.2 image
     - assets/images/image2.png #session 7.2 image
-  #   - images/a_dot_ham.jpeg
+    - assets/images/food/ #session 10.1 image
+    - assets/images/movie/ #session 10 image
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

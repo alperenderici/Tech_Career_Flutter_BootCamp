@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bootcamp/sessions/s9/9.1/data/entity/person.dart';
 import 'package:flutter_bootcamp/sessions/s9/9.1/ui/screen/person_detail_page.dart';
-import 'package:flutter_bootcamp/sessions/s9/ui/screen/person_record_page.dart';
+import 'package:flutter_bootcamp/sessions/s9/9.1/ui/screen/person_record_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -114,7 +114,7 @@ class _HomePageState extends State<HomePage> {
                                 action: SnackBarAction(
                                     label: "Evet",
                                     onPressed: () {
-                                      print("Kisi sil: ${person.person_id}");
+                                      print("Kişi sil: ${person.person_id}");
                                     }),
                               ),
                             );

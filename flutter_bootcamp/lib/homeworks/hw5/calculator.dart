@@ -12,6 +12,10 @@ class _CalculatorState extends State<Calculator> {
   double num = 0;
   bool onClick = false;
 
+  List<String> numlist = ["0"];
+
+  //"6+78+4" -> split -> 6,78,4
+
   sum(double num1, double num2) {
     //TODO BULMASI KOLAY OLSUN
     double sum = num1 + num2;
@@ -32,7 +36,8 @@ class _CalculatorState extends State<Calculator> {
           children: [
             Padding(
               padding: const EdgeInsets.only(right: 30),
-              child: onClick ? Text(display) : Text("${num.toInt()}"),
+              child:
+                  onClick ? Text(numlist.toString()) : Text("${num.toInt()}"),
             ),
           ],
         ),
@@ -55,6 +60,7 @@ class _CalculatorState extends State<Calculator> {
                       onPressed: () {
                         setState(() {
                           num = 0;
+                          numlist.clear();
                           onClick = false;
                         });
                       },
@@ -266,7 +272,8 @@ class _CalculatorState extends State<Calculator> {
                           backgroundColor: Colors.grey),
                       onPressed: () {
                         setState(() {
-                          num = 1;
+                          // num = 1;
+                          numlist.join("1");
                           onClick = true;
                         });
                       },
