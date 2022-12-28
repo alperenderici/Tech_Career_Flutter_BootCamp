@@ -31,6 +31,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  flutter_bloc: ^8.0.1 #session 11.2 cubit
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -67,6 +68,7 @@ flutter:
     - assets/images/image2.png #session 7.2 image
     - assets/images/food/ #session 10.1 image
     - assets/images/movie/ #session 10 image
+    - lib/homeworks/hw6/images/ #homework 6 image folder
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
