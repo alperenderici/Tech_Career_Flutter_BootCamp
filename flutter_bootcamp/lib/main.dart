@@ -1,8 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_bootcamp/sessions/s11/11.2/homepage.dart';
-import 'package:flutter_bootcamp/sessions/s11/11.2/homepage_cubit.dart';
 
+// import 'package:flutter_bloc/flutter_bloc.dart';
+// import 'package:flutter_bootcamp/sessions/s12/12.1/ui/cubit/homepage_cubit.dart';
+// import 'package:flutter_bootcamp/sessions/s12/12.1/ui/cubit/person_detail_cubit.dart';
+// import 'package:flutter_bootcamp/sessions/s12/12.1/ui/cubit/person_record_cubit.dart';
+// import 'package:flutter_bootcamp/sessions/s12/12.1/ui/screen/homepage.dart';
+
+import 'package:flutter_bootcamp/sessions/s12/12.2/homepage.dart';
+
+// import 'package:flutter_bootcamp/homeworks/hw6/ui/homepage.dart';
 // import 'package:flutter_bootcamp/homeworks/hw6/ui/homepage.dart';
 // import 'package:flutter_bootcamp/homeworks/hw6/hw6_theme.dart';
 
@@ -20,18 +26,41 @@ class MyApp extends StatelessWidget {
     //   home: HomePage(),
     // );
 
-    return MultiBlocProvider(
-      providers: [
-        BlocProvider(
-          create: (context) => HomePageCubit(),
-        ),
-      ],
-      child: MaterialApp(
-        debugShowCheckedModeBanner: false,
-        title: 'Material App',
-        // theme: hw6ThemeData(),
-        home: HomePage(),
-      ),
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      title: 'Material App',
+      // theme: hw6ThemeData(),
+      home: HomePage(),
     );
+
+//Session 11.2
+    // return MultiBlocProvider(
+    //   providers: [
+    //  BlocProvider(
+    //       create: (context) => HomePageCubit(),
+    //     ),
+    //   ],
+    //   child: MaterialApp(
+    //     debugShowCheckedModeBanner: false,
+    //     title: 'Material App',
+    //     // theme: hw6ThemeData(),
+    //     home: HomePage(),
+    //   ),
+    // );
+
+//Session 12.1
+    // return MultiBlocProvider(
+    //   providers: [
+    //     BlocProvider(create: (context) => PersonRecordCubit()),
+    //     BlocProvider(create: (context) => PersonDetailCubit()),
+    //     BlocProvider(create: (context) => HomePageCubit()),
+    //   ],
+    //   child: MaterialApp(
+    //     debugShowCheckedModeBanner: false,
+    //     title: 'Material App',
+    //     // theme: hw6ThemeData(),
+    //     home: HomePage(),
+    //   ),
+    // );
   }
 }

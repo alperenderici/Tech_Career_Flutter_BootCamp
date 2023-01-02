@@ -31,7 +31,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  flutter_bloc: ^8.0.1 #session 11.2 cubit
+  flutter_bloc: ^8.0.1 #session 11.2 cubit + session 12.1 
+  shared_preferences:  #Session 12.2 
 
 
   # The following adds the Cupertino Icons font to your application.
