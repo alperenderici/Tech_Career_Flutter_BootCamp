@@ -5,6 +5,7 @@ ThemeData hw6ThemeData() {
       scaffoldBackgroundColor: Colors.black,
       // backgroundColor: Colors.black,
       textTheme: TextTheme(bodyMedium: TextStyle(color: Colors.white)),
+      fontFamily: "Gotham",
       // textTheme: const TextTheme(),
       // elevatedButtonTheme: ElevatedButtonThemeData(
       //   style: ElevatedButton.styleFrom(

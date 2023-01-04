@@ -53,12 +53,12 @@ Future<List<Music>> fetchMusic() async {
 }
 
 Future<List<Music>> fetchArtist() async {
-  var musics = <Music>[];
+  var artists = <Music>[];
   var m1 = Music(
     id: 1,
     name: "King Gizzard & The Lizard Wizard",
     description: "",
-    imageName: "music1.jpeg",
+    imageName: "music4.jpeg",
   );
   var m2 = Music(
     id: 2,
@@ -72,10 +72,10 @@ Future<List<Music>> fetchArtist() async {
     description: "",
     imageName: "music5.jpeg",
   );
-  musics.add(m1);
-  musics.add(m2);
-  musics.add(m3);
-  return musics;
+  artists.add(m1);
+  artists.add(m2);
+  artists.add(m3);
+  return artists;
 }
 
 class _HomePageState extends State<HomePage> {
@@ -84,115 +84,222 @@ class _HomePageState extends State<HomePage> {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          title: Text("İyi günler"),
+          title: const Text(
+            "İyi günler",
+            style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
+          ),
           actions: [
             IconButton(
               onPressed: () {},
-              icon: Icon(
-                Icons.add_alert_outlined,
+              icon: const Icon(
+                Icons.notifications_none_outlined,
               ),
             ),
             IconButton(
               onPressed: () {},
-              icon: Icon(
-                Icons.access_time_rounded,
+              icon: const Icon(
+                Icons.watch_later_outlined,
               ),
             ),
             IconButton(
               onPressed: () {},
-              icon: Icon(
-                Icons.settings,
+              icon: const Icon(
+                Icons.settings_outlined,
               ),
             ),
           ],
         ),
-        body: Column(
-          children: [
-            SizedBox(
-              height: MediaQuery.of(context).size.height / 3,
-              child: FutureBuilder<List<Feature>>(
-                future: fetchFeature(),
-                builder: (context, snapshot) {
-                  var featureList = snapshot.data;
-                  if (snapshot.hasData) {
-                    return GridView.builder(
-                        gridDelegate:
-                            const SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 2,
-                          childAspectRatio: 6 / 2,
-                        ),
-                        itemCount: featureList!.length,
+        body: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: ListView(
+            children: [
+              SizedBox(
+                height: MediaQuery.of(context).size.height / 3,
+                child: FutureBuilder<List<Feature>>(
+                  future: fetchFeature(),
+                  builder: (context, snapshot) {
+                    var featureList = snapshot.data;
+                    if (snapshot.hasData) {
+                      return GridView.builder(
+                          gridDelegate:
+                              const SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 2,
+                            childAspectRatio: 3,
+                          ),
+                          itemCount: featureList!.length,
+                          itemBuilder: (context, index) {
+                            var feature = featureList[index];
+                            return Card(
+                              shape: const RoundedRectangleBorder(
+                                borderRadius: BorderRadius.all(
+                                  Radius.circular(5),
+                                ),
+                              ),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  ClipRRect(
+                                    borderRadius: const BorderRadius.only(
+                                      topLeft: Radius.circular(5),
+                                      bottomLeft: Radius.circular(5),
+                                    ),
+                                    child: Image.asset(
+                                        "lib/homeworks/hw6/assets/images/${feature.imageName}"),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.only(left: 10.0),
+                                    child: Text(feature.name),
+                                  ),
+                                ],
+                              ),
+                            );
+                          });
+                    } else {
+                      return const CircularProgressIndicator();
+                    }
+                  },
+                ),
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: const [
+                  Padding(
+                    padding: EdgeInsets.all(8.0),
+                    child: Text(
+                      "Kaldığın yerden devam et",
+                      style:
+                          TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(
+                height: MediaQuery.of(context).size.height / 3.2,
+                child: FutureBuilder<List<Music>>(
+                  future: fetchMusic(),
+                  builder: (context, snapshot) {
+                    if (snapshot.hasData) {
+                      var artists = snapshot.data;
+                      return ListView.builder(
+                        scrollDirection: Axis.horizontal,
+                        itemCount: artists!.length,
                         itemBuilder: (context, index) {
-                          var feature = featureList[index];
-                          return Card(
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
+                          var music = artists[index];
+                          return Padding(
+                            padding: const EdgeInsets.only(left: 10.0),
+                            child: Column(
                               children: [
-                                Image.asset(
-                                    "lib/homeworks/hw6/images/${feature.imageName}"),
-                                Padding(
-                                  padding: const EdgeInsets.only(left: 10.0),
-                                  child: Text(feature.name),
+                                Expanded(
+                                  flex: 6,
+                                  child: SizedBox(
+                                    height:
+                                        MediaQuery.of(context).size.height / 3,
+                                    width:
+                                        MediaQuery.of(context).size.width / 3,
+                                    child: Image.asset(
+                                        "lib/homeworks/hw6/assets/images/${music.imageName}"),
+                                  ),
+                                ),
+                                Expanded(
+                                  child: Text(
+                                    music.name,
+                                    style: const TextStyle(
+                                      fontSize: 12,
+                                    ),
+                                  ),
+                                ),
+                                Expanded(
+                                  child: Text(
+                                    music.description,
+                                    style: const TextStyle(
+                                        fontSize: 10, color: Colors.grey),
+                                  ),
                                 ),
                               ],
                             ),
                           );
-                        });
-                  } else {
-                    return const CircularProgressIndicator();
-                  }
-                },
+                        },
+                      );
+                    } else {
+                      return const CircularProgressIndicator();
+                    }
+                  },
+                ),
               ),
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Text("Kaldığın yerden devam et"),
-              ],
-            ),
-            FutureBuilder<List<Music>>(
-              future: fetchMusic(),
-              builder: (context, snapshot) {
-                if (snapshot.hasData) {
-                  var musicList = snapshot.data;
-                  return SizedBox(
-                    height: MediaQuery.of(context).size.height / 3,
-                    width: MediaQuery.of(context).size.width,
-                    child: ListView.builder(
-                      scrollDirection: Axis.horizontal,
-                      itemCount: musicList!.length,
-                      itemBuilder: (context, index) {
-                        var music = musicList[index];
-                        return Padding(
-                          padding: const EdgeInsets.only(left: 10.0),
-                          child: Column(
-                            children: [
-                              SizedBox(
-                                height: MediaQuery.of(context).size.height / 3,
-                                width: MediaQuery.of(context).size.width / 3,
-                                child: Image.asset(
-                                    "lib/homeworks/hw6/images/${music.imageName}"),
-                              ),
-                              Text(
-                                music.name,
-                                style: TextStyle(fontSize: 2),
-                              ),
-                              Text(
-                                music.description,
-                                style: TextStyle(fontSize: 1),
-                              ),
-                            ],
-                          ),
-                        );
-                      },
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: const [
+                  Padding(
+                    padding: EdgeInsets.all(8.0),
+                    child: Text(
+                      "En sevdiğin sanatçılar",
+                      style:
+                          TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
                     ),
-                  );
-                } else {
-                  return const CircularProgressIndicator();
-                }
-              },
-            ),
-          ],
+                  ),
+                ],
+              ),
+              SizedBox(
+                height: MediaQuery.of(context).size.height / 3.2,
+                child: FutureBuilder<List<Music>>(
+                  future: fetchArtist(),
+                  builder: (context, snapshot) {
+                    if (snapshot.hasData) {
+                      var musicList = snapshot.data;
+                      return ListView.builder(
+                        scrollDirection: Axis.horizontal,
+                        itemCount: musicList!.length,
+                        itemBuilder: (context, index) {
+                          var music = musicList[index];
+                          return Padding(
+                            padding: const EdgeInsets.only(left: 10.0),
+                            child: Column(
+                              children: [
+                                Expanded(
+                                  flex: 6,
+                                  child: SizedBox(
+                                    height:
+                                        MediaQuery.of(context).size.height / 3,
+                                    width:
+                                        MediaQuery.of(context).size.width / 3,
+                                    child: CircleAvatar(
+                                      radius: 45,
+                                      child: ClipOval(
+                                        child: Image.asset(
+                                            "lib/homeworks/hw6/assets/images/${music.imageName}"),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                Expanded(
+                                  child: Text(
+                                    music.name,
+                                    style: const TextStyle(
+                                      fontSize: 12,
+                                    ),
+                                    maxLines: 20,
+                                  ),
+                                ),
+                                Expanded(
+                                  child: Text(
+                                    music.description,
+                                    style: const TextStyle(
+                                        fontSize: 10, color: Colors.grey),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          );
+                        },
+                      );
+                    } else {
+                      return const CircularProgressIndicator();
+                    }
+                  },
+                ),
+              ),
+            ],
+          ),
         ),
         bottomNavigationBar: BottomNavigationBar(items: const [
           BottomNavigationBarItem(

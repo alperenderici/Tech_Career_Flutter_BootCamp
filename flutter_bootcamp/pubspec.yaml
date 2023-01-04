@@ -33,7 +33,8 @@ dependencies:
     sdk: flutter
   flutter_bloc: ^8.0.1 #session 11.2 cubit + session 12.1 
   shared_preferences:  #Session 12.2 
-
+  path: ^1.8.0 #session 13.1
+  sqflite: ^2.0.0 #session 13.1
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
@@ -69,7 +70,8 @@ flutter:
     - assets/images/image2.png #session 7.2 image
     - assets/images/food/ #session 10.1 image
     - assets/images/movie/ #session 10 image
-    - lib/homeworks/hw6/images/ #homework 6 image folder
+    - lib/homeworks/hw6/assets/images/ #homework 6 image folder
+    - lib/sessions/s13/13.1/database/rehber.sqlite #session 13.1 db
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
@@ -86,6 +88,10 @@ flutter:
     - family: Pacifico #session 5. font
       fonts:
         - asset: assets/fonts/Pacifico-Regular.ttf
+
+    - family: Gotham #homework 6. font
+      fonts:
+        - asset: lib/homeworks/hw6/assets/fonts/GothamMedium.ttf
 
   #   - family: Trajan Pro
   #     fonts:
