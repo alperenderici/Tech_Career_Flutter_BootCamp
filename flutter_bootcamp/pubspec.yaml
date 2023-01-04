@@ -88,11 +88,6 @@ flutter:
     - family: Pacifico #session 5. font
       fonts:
         - asset: assets/fonts/Pacifico-Regular.ttf
-
-    - family: Gotham #homework 6. font
-      fonts:
-        - asset: lib/homeworks/hw6/assets/fonts/GothamMedium.ttf
-
   #   - family: Trajan Pro
   #     fonts:
   #       - asset: fonts/TrajanPro.ttf

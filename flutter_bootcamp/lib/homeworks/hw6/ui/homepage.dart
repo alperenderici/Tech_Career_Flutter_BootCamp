@@ -31,7 +31,7 @@ Future<List<Music>> fetchMusic() async {
   var m1 = Music(
     id: 1,
     name: "Scorpions Radyo",
-    description: "Scorpions, Bon Jovi,",
+    description: "",
     imageName: "music1.jpeg",
   );
   var m2 = Music(
@@ -114,7 +114,7 @@ class _HomePageState extends State<HomePage> {
           child: ListView(
             children: [
               SizedBox(
-                height: MediaQuery.of(context).size.height / 3,
+                height: MediaQuery.of(context).size.height / 3.3,
                 child: FutureBuilder<List<Feature>>(
                   future: fetchFeature(),
                   builder: (context, snapshot) {
@@ -174,7 +174,7 @@ class _HomePageState extends State<HomePage> {
                 ],
               ),
               SizedBox(
-                height: MediaQuery.of(context).size.height / 3.2,
+                height: MediaQuery.of(context).size.height / 3.3,
                 child: FutureBuilder<List<Music>>(
                   future: fetchMusic(),
                   builder: (context, snapshot) {
@@ -186,34 +186,31 @@ class _HomePageState extends State<HomePage> {
                         itemBuilder: (context, index) {
                           var music = artists[index];
                           return Padding(
-                            padding: const EdgeInsets.only(left: 10.0),
+                            padding: const EdgeInsets.only(left: 15.0),
                             child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Expanded(
-                                  flex: 6,
+                                  flex: 3,
                                   child: SizedBox(
-                                    height:
-                                        MediaQuery.of(context).size.height / 3,
+                                    height: MediaQuery.of(context).size.height /
+                                        2.5,
                                     width:
-                                        MediaQuery.of(context).size.width / 3,
+                                        MediaQuery.of(context).size.width / 2.5,
                                     child: Image.asset(
                                         "lib/homeworks/hw6/assets/images/${music.imageName}"),
                                   ),
                                 ),
-                                Expanded(
-                                  child: Text(
-                                    music.name,
-                                    style: const TextStyle(
-                                      fontSize: 12,
-                                    ),
+                                Text(
+                                  music.name,
+                                  style: const TextStyle(
+                                    fontSize: 14,
                                   ),
                                 ),
-                                Expanded(
-                                  child: Text(
-                                    music.description,
-                                    style: const TextStyle(
-                                        fontSize: 10, color: Colors.grey),
-                                  ),
+                                Text(
+                                  music.description,
+                                  style: const TextStyle(
+                                      fontSize: 12, color: Colors.grey),
                                 ),
                               ],
                             ),
@@ -240,7 +237,7 @@ class _HomePageState extends State<HomePage> {
                 ],
               ),
               SizedBox(
-                height: MediaQuery.of(context).size.height / 3.2,
+                height: MediaQuery.of(context).size.height / 3.3,
                 child: FutureBuilder<List<Music>>(
                   future: fetchArtist(),
                   builder: (context, snapshot) {
@@ -252,17 +249,18 @@ class _HomePageState extends State<HomePage> {
                         itemBuilder: (context, index) {
                           var music = musicList[index];
                           return Padding(
-                            padding: const EdgeInsets.only(left: 10.0),
+                            padding: const EdgeInsets.only(left: 15.0),
                             child: Column(
                               children: [
                                 Expanded(
                                   flex: 6,
                                   child: SizedBox(
-                                    height:
-                                        MediaQuery.of(context).size.height / 3,
+                                    height: MediaQuery.of(context).size.height /
+                                        2.5,
                                     width:
-                                        MediaQuery.of(context).size.width / 3,
+                                        MediaQuery.of(context).size.width / 2.5,
                                     child: CircleAvatar(
+                                      backgroundColor: Colors.transparent,
                                       radius: 45,
                                       child: ClipOval(
                                         child: Image.asset(
@@ -275,16 +273,8 @@ class _HomePageState extends State<HomePage> {
                                   child: Text(
                                     music.name,
                                     style: const TextStyle(
-                                      fontSize: 12,
+                                      fontSize: 14,
                                     ),
-                                    maxLines: 20,
-                                  ),
-                                ),
-                                Expanded(
-                                  child: Text(
-                                    music.description,
-                                    style: const TextStyle(
-                                        fontSize: 10, color: Colors.grey),
                                   ),
                                 ),
                               ],
@@ -311,7 +301,7 @@ class _HomePageState extends State<HomePage> {
             label: "Search",
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.folder_copy_outlined), //TODO change icon
+            icon: Icon(Icons.folder_copy_outlined),
             label: "Your Library",
           ),
         ]),

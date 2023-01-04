@@ -4,8 +4,7 @@ ThemeData hw6ThemeData() {
   return ThemeData(
       scaffoldBackgroundColor: Colors.black,
       // backgroundColor: Colors.black,
-      textTheme: TextTheme(bodyMedium: TextStyle(color: Colors.white)),
-      fontFamily: "Gotham",
+      textTheme: const TextTheme(bodyMedium: TextStyle(color: Colors.white)),
       // textTheme: const TextTheme(),
       // elevatedButtonTheme: ElevatedButtonThemeData(
       //   style: ElevatedButton.styleFrom(
@@ -15,16 +14,14 @@ ThemeData hw6ThemeData() {
       appBarTheme: const AppBarTheme(
         backgroundColor: Colors.transparent,
       ),
-      // bottomNavigationBarTheme: BottomNavigationBarThemeData(
-      //   backgroundColor: Colors.black45,
-      // ),
-      bottomNavigationBarTheme: BottomNavigationBarThemeData(
-        backgroundColor: Colors.black45,
+      bottomNavigationBarTheme: const BottomNavigationBarThemeData(
+        backgroundColor: Colors.black54,
+        elevation: 0,
         selectedItemColor: Colors.white,
         selectedIconTheme: IconThemeData(color: Colors.white),
-        unselectedIconTheme: IconThemeData(color: Colors.white30),
+        unselectedIconTheme: IconThemeData(color: Colors.grey),
         selectedLabelStyle: TextStyle(color: Colors.white),
-        unselectedLabelStyle: TextStyle(color: Colors.white30),
+        unselectedLabelStyle: TextStyle(color: Colors.grey),
       ),
       cardTheme: CardTheme(
         color: Colors.grey[850],
