@@ -56,7 +56,8 @@ Future<List<Music>> fetchArtist() async {
   var artists = <Music>[];
   var m1 = Music(
     id: 1,
-    name: "King Gizzard & The Lizard Wizard",
+    // name: "King Gizzard & The Lizard Wizard",
+    name: "King Gizzard",
     description: "",
     imageName: "music4.jpeg",
   );
@@ -291,21 +292,56 @@ class _HomePageState extends State<HomePage> {
             ],
           ),
         ),
-        bottomNavigationBar: BottomNavigationBar(items: const [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: "Home",
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.search),
-            label: "Search",
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.folder_copy_outlined),
-            label: "Your Library",
-          ),
-        ]),
+        bottomNavigationBar: const bottomNavigationBar(),
+        extendBody: true,
       ),
+    );
+  }
+}
+
+class bottomNavigationBar extends StatelessWidget {
+  const bottomNavigationBar({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      // decoration: const BoxDecoration(
+      //   gradient: LinearGradient(
+      //     begin: Alignment.topCenter,
+      //     end: Alignment.bottomCenter,
+      //     colors: [
+      //       Colors.transparent,
+      //       Colors.black,
+      //     ],
+      //   ),
+      // ),
+      child: BottomNavigationBar(
+          landscapeLayout: BottomNavigationBarLandscapeLayout.linear,
+          elevation: 0,
+          backgroundColor: Colors.black.withOpacity(0.6),
+          selectedItemColor: Colors.white,
+          selectedIconTheme: const IconThemeData(color: Colors.white),
+          unselectedIconTheme: IconThemeData(color: Colors.grey[350]),
+          selectedLabelStyle:
+              const TextStyle(color: Colors.white, fontWeight: FontWeight.w500),
+          unselectedLabelStyle:
+              TextStyle(color: Colors.grey[350], fontWeight: FontWeight.w500),
+          items: const [
+            BottomNavigationBarItem(
+              icon: Icon(Icons.home),
+              label: "Home",
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.search),
+              label: "Search",
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.folder_copy_outlined),
+              label: "Your Library",
+            ),
+          ]),
     );
   }
 }

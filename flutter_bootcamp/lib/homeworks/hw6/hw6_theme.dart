@@ -14,15 +14,15 @@ ThemeData hw6ThemeData() {
       appBarTheme: const AppBarTheme(
         backgroundColor: Colors.transparent,
       ),
-      bottomNavigationBarTheme: const BottomNavigationBarThemeData(
-        backgroundColor: Colors.black54,
-        elevation: 0,
-        selectedItemColor: Colors.white,
-        selectedIconTheme: IconThemeData(color: Colors.white),
-        unselectedIconTheme: IconThemeData(color: Colors.grey),
-        selectedLabelStyle: TextStyle(color: Colors.white),
-        unselectedLabelStyle: TextStyle(color: Colors.grey),
-      ),
+      // bottomNavigationBarTheme: const BottomNavigationBarThemeData(
+      //   backgroundColor: Colors.black54,
+      //   elevation: 0,
+      //   selectedItemColor: Colors.white,
+      //   selectedIconTheme: IconThemeData(color: Colors.white),
+      //   unselectedIconTheme: IconThemeData(color: Colors.grey),
+      //   selectedLabelStyle: TextStyle(color: Colors.white),
+      //   unselectedLabelStyle: TextStyle(color: Colors.grey),
+      // ),
       cardTheme: CardTheme(
         color: Colors.grey[850],
       ));

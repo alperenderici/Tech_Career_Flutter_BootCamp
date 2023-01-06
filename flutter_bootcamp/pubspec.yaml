@@ -72,6 +72,7 @@ flutter:
     - assets/images/movie/ #session 10 image
     - lib/homeworks/hw6/assets/images/ #homework 6 image folder
     - lib/sessions/s13/13.1/database/rehber.sqlite #session 13.1 db
+    - lib/homeworks/hw7/database/todo.sqlite #homework 7 db
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
