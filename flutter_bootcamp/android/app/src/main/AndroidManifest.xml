@@ -1,9 +1,13 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.flutter_bootcamp">
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/> <!-- session 16.3-->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/> <!-- session 16.3-->
    <application
         android:label="flutter_bootcamp"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
+        <meta-data android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyDyynJC04P_USAWmzvMZ-y29sOXv6vUVR8"/><!-- session 16.3-->
         <activity
             android:name=".MainActivity"
             android:exported="true"

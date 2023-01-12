@@ -47,5 +47,9 @@
 	<true/>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
+	<key>NSLocationWhenInUsageDescription</key> <!--session 16.3-->
+	<string>Application Permission</string> <!--session 16.3-->
+	<key>io.flutter.embedded_views_preview</key> <!--session 16.3-->
+	<string>YES</string> <!--session 16.3-->
 </dict>
 </plist>

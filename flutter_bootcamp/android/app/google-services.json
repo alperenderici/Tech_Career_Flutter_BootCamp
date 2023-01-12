@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "760196472518",
+    "firebase_url": "https://bootcamp-dea48-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "bootcamp-dea48",
+    "storage_bucket": "bootcamp-dea48.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:760196472518:android:cabdb2bef64c647ede41c7",
+        "android_client_info": {
+          "package_name": "com.example.flutter_bootcamp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "760196472518-po1pft6fe4biqqoor84l5dsjr5ces51a.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDR9HJNcLZIHijK4xa0um2aefdUt22mYr8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "760196472518-po1pft6fe4biqqoor84l5dsjr5ces51a.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -37,12 +37,19 @@ dependencies:
   sqflite: ^2.0.0 #session 13.1
   http: ^0.13.4 #session 14.2
   dio: ^4.0.4 #session 15.1 
-  firebase_core: ^1.12.0 #session 15.2
-  firebase_database: ^9.0.6 #session 15.2
+  firebase_core: ^1.12.0 #session 16.1
+  firebase_database: ^9.0.6 #session 16.1
+  
+  flutter_local_notifications: ^9.2.0 #session 16.2
+  geolocator: ^8.0.3 #session 16.3
+  google_maps_flutter: ^2.1.1 #session 16.3
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
+
+dependency_overrides: #session 16.1
+  firebase_core_platform_interface: 4.5.1
 
 dev_dependencies:
   flutter_test:
