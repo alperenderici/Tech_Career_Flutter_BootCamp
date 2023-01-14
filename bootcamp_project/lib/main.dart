@@ -2,6 +2,7 @@ import 'package:bootcamp_project/ui/cubit/basket_cubit.dart';
 import 'package:bootcamp_project/ui/cubit/food_detail_cubit.dart';
 import 'package:bootcamp_project/ui/cubit/homepage_cubit.dart';
 import 'package:bootcamp_project/ui/screens/homepage.dart';
+import 'package:bootcamp_project/ui/theme/theme_data.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -18,10 +19,11 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (context) => FoodDetailCubit()),
         BlocProvider(create: (context) => BasketCubit()),
       ],
-      child: const MaterialApp(
+      child: MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Material App',
-        home: HomePage(),
+        theme: projectThemeData(),
+        home: const HomePage(),
       ),
     );
   }

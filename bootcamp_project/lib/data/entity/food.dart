@@ -1,8 +1,8 @@
 class Food {
-  String food_id;
+  int food_id;
   String food_name;
   String food_image_name;
-  String food_price;
+  int food_price;
 
   Food({
     required this.food_id,
@@ -13,10 +13,10 @@ class Food {
 
   factory Food.fromJson(Map<String, dynamic> json) {
     return Food(
-      food_id: json['yemek_id'] as String,
+      food_id: int.parse(json['yemek_id']) as int,
       food_name: json['yemek_adi'] as String,
       food_image_name: json['yemek_resim_adi'] as String,
-      food_price: json['yemek_fiyat'] as String,
+      food_price: int.parse(json['yemek_fiyat']) as int,
     );
   }
 }
