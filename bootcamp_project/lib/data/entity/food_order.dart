@@ -1,6 +1,3 @@
-import 'dart:convert';
-import 'package:bootcamp_project/data/entity/food.dart';
-
 class FoodOrder {
   int food_order_id;
   String food_name;
@@ -46,4 +43,3 @@ class FoodOrder {
   //   );
   // }
 }
-// 

@@ -11,4 +11,9 @@ class HomePageCubit extends Cubit<List<Food>> {
     var list = await foodRepo.showAllFood();
     emit(list);
   }
+
+  Future<void> search(String searchWord) async {
+    var list = await foodRepo.search(searchWord);
+    emit(list);
+  }
 }

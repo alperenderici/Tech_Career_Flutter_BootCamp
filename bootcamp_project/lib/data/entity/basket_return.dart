@@ -1,4 +1,3 @@
-import 'package:bootcamp_project/data/entity/food.dart';
 import 'package:bootcamp_project/data/entity/food_order.dart';
 
 class BasketReturn {

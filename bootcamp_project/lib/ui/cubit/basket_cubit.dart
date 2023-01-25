@@ -1,16 +1,14 @@
-import 'package:bootcamp_project/data/entity/food.dart';
-import 'package:bootcamp_project/data/entity/food_order.dart';
+import 'package:bootcamp_project/data/entity/basket_return.dart';
 import 'package:bootcamp_project/data/repo/food_repository.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class BasketCubit extends Cubit<List<FoodOrder>> {
-  BasketCubit() : super(<FoodOrder>[]);
-  // BasketCubit() : super(0);
+class BasketCubit extends Cubit<BasketReturn> {
+  BasketCubit() : super(BasketReturn(food_order: [], success: 1));
 
   var foodRepo = FoodRepository();
 
-  Future<void> showBasket(String user_name) async {
-    var list = await foodRepo.showBasket(user_name);
+  Future<void> showBasket() async {
+    var list = await foodRepo.showBasket();
     emit(list);
   }
 
@@ -20,13 +18,12 @@ class BasketCubit extends Cubit<List<FoodOrder>> {
         food_name, food_image_name, food_price, food_order_piece, user_name);
   }
 
-  // Future<void> search(String searchWord) async {
-  //   var list = await foodRepo.search(searchWord);
-  //   emit(list);
-  // }
-
   Future<void> deleteBasket(int basket_food_id, String user_name) async {
     await foodRepo.deleteBasket(basket_food_id, user_name);
-    await showBasket(user_name);
+    await showBasket();
+  }
+
+  int showSum() {
+    return foodRepo.showSum;
   }
 }

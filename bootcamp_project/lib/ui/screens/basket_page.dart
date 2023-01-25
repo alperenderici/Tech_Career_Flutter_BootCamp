@@ -1,8 +1,6 @@
-import 'package:bootcamp_project/data/entity/food.dart';
+import 'package:bootcamp_project/data/entity/basket_return.dart';
 import 'package:bootcamp_project/data/entity/food_order.dart';
 import 'package:bootcamp_project/ui/cubit/basket_cubit.dart';
-import 'package:bootcamp_project/ui/cubit/homepage_cubit.dart';
-import 'package:bootcamp_project/ui/screens/food_detail_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lottie/lottie.dart';
@@ -18,12 +16,11 @@ class _BasketPageState extends State<BasketPage>
     with SingleTickerProviderStateMixin {
   late AnimationController deleteBasketAnimation;
   String user_name = "Alperen_Derici";
-  int sum = 0;
 
   @override
   void initState() {
     super.initState();
-    context.read<BasketCubit>().showBasket(user_name);
+    context.read<BasketCubit>().showBasket();
     deleteBasketAnimation = AnimationController(
       vsync: this,
     );
@@ -52,7 +49,6 @@ class _BasketPageState extends State<BasketPage>
             controller: deleteBasketAnimation,
             repeat: false,
             onLoaded: (p0) {
-              // deleteBasketAnimation.duration = p0.duration;
               deleteBasketAnimation.duration = const Duration(seconds: 1);
               deleteBasketAnimation.forward();
             },
@@ -70,99 +66,195 @@ class _BasketPageState extends State<BasketPage>
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const Text("Basket"),
-              Text("Tutar: ${sum}₺"),
+              const Text("Sepet"),
+              Text(
+                "Tutar: ${context.read<BasketCubit>().showSum()}₺",
+              ),
             ],
           ),
         ),
       ),
-      body: BlocBuilder<BasketCubit, List<FoodOrder>>(
+      body: BlocBuilder<BasketCubit, BasketReturn>(
         builder: (context, foodList) {
-          if (foodList.isNotEmpty) {
+          List<FoodOrder> basketFoodList = foodList.food_order;
+          if (foodList.success != 0) {
+            // List distinctList = basketFoodList.toSet().toList();
+            // for (int i = 0; i < basketFoodList.length; i++) {
+            //   basketFoodList.remove(foodList.food_order);
+            // }
+
             return ListView.builder(
-              itemCount: foodList.length,
+              itemCount: basketFoodList.length,
               itemBuilder: ((context, index) {
-                var food = foodList[index];
-                sum += food.food_price;
-                return GestureDetector(
-                  onTap: () {
-                    // Navigator.push(
-                    //   context,
-                    //   MaterialPageRoute(
-                    //     builder: ((context) => FoodDetailPage(food: food,)),
-                    //   ),
-                    // ).then((value) {
-                    //   context.read<BasketCubit>().showBasket(user_name);
-                    // });
+                var food = basketFoodList[index];
+                var counter = basketFoodList;
+                var counts = counter.fold<Map<String, int>>({}, (map, element) {
+                  map[element.food_name] = (map[element.food_name] ?? 0) + 1;
+                  return map;
+                });
+                Map<String, dynamic> count = {};
+                basketFoodList.forEach(
+                    (i) => count[food.food_name] = (count[i] ?? 0) + 1);
+
+                return Dismissible(
+                  key: Key(food.food_name),
+                  onDismissed: (direction) {
+                    showDeleteIcon();
+                    context.read<BasketCubit>().deleteBasket(
+                          food.food_order_id,
+                          user_name,
+                        );
                   },
+                  background: Container(
+                    color: Colors.red,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: const [
+                        Padding(
+                          padding: EdgeInsets.only(right: 15.0),
+                          child: Text(
+                            "Remove",
+                            style: TextStyle(color: Colors.white),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
                   child: Card(
                     child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child:
-                              Text("${food.food_name} - ${food.food_price}₺"),
+                        Expanded(
+                          flex: 6,
+                          child: Column(
+                            children: [
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  SizedBox(
+                                    height:
+                                        MediaQuery.of(context).size.width / 4,
+                                    width:
+                                        MediaQuery.of(context).size.width / 4,
+                                    child: Image.network(
+                                        "http://kasimadalan.pe.hu/yemekler/resimler/${food.food_image_name}"),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Text(food.food_name),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
                         ),
-                        IconButton(
-                            onPressed: () {
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                SnackBar(
-                                  content:
-                                      Text("${food.food_name} silinsin mi?"),
-                                  action: SnackBarAction(
-                                      label: "Evet",
+                        Expanded(
+                          flex: 4,
+                          child: Column(
+                            children: [
+                              Row(
+                                children: [
+                                  SizedBox(
+                                    child: IconButton(
                                       onPressed: () {
-                                        showDeleteIcon();
-                                        context
-                                            .read<BasketCubit>()
-                                            .deleteBasket(
-                                              food.food_order_id,
-                                              user_name,
-                                            );
-                                      }),
-                                ),
-                              );
-                            },
-                            icon: const Icon(
-                              Icons.delete_outline_rounded,
-                              color: Colors.red,
-                            )
-                            // Lottie.asset(
-                            //   "assets/icons/117346-microinteractions-icon-09.json",
-                            //   controller: deleteBasketAnimation,
-                            //   repeat: false,
-                            //   onLoaded: (p0) {
-                            //     deleteBasketAnimation.duration = p0.duration;
-                            //     deleteBasketAnimation.forward();
-                            //   },
-                            // ),
-                            ),
+                                        if (counts.entries.isNotEmpty) {
+                                          showDeleteIcon();
+                                          context
+                                              .read<BasketCubit>()
+                                              .deleteBasket(
+                                                food.food_order_id,
+                                                user_name,
+                                              );
+                                        } else {}
+                                      },
+                                      icon: Card(
+                                          color: Colors.blueGrey.shade100,
+                                          child: const Icon(Icons.remove)),
+                                    ),
+                                  ),
+                                  // Text(
+                                  //   "${count[food.food_name].toString()}",
+                                  //   // "${foodList.food_order.addAll(count[food.food_name])}",
+                                  //   style:
+                                  //       Theme.of(context).textTheme.bodyMedium,
+                                  // ),
+                                  SizedBox(
+                                    child: IconButton(
+                                      onPressed: () {
+                                        context.read<BasketCubit>().addBasket(
+                                            food.food_name,
+                                            food.food_image_name,
+                                            food.food_price.toString(),
+                                            '1',
+                                            user_name);
+                                      },
+                                      icon: const Card(
+                                          color: Colors.green,
+                                          child: Icon(
+                                            Icons.add,
+                                            color: Colors.white,
+                                          )),
+                                    ),
+                                  ),
+                                  Text("${food.food_price}₺"),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ),
                       ],
                     ),
                   ),
                 );
               }),
             );
+          } else if (foodList.food_order.isEmpty) {
+            return const Center(
+              child: Text("Go back to fill your basket"),
+            );
           } else {
-            return const Center();
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
           }
         },
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => const BasketPage(),
+      floatingActionButtonLocation:
+          FloatingActionButtonLocation.centerFloat, //*?check
+      floatingActionButton: Container(
+        padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 10.0),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            FloatingActionButton(
+              heroTag: null,
+              onPressed: () {},
+              child: const CircleAvatar(
+                backgroundColor: Colors.white,
+                child: Icon(
+                  Icons.person_outline_rounded,
+                  color: Colors.orange,
+                ),
+              ),
             ),
-          ).then((value) {
-            context.read<HomePageCubit>().showAllFood();
-          });
-        },
-        child: const CircleAvatar(
-          backgroundColor: Colors.white,
-          child: Icon(Icons.payment),
+            FloatingActionButton(
+              heroTag: null,
+              onPressed: () {
+                // Navigator.push(
+                //   context,
+                //   MaterialPageRoute(
+                //     builder: (context) => const BasketPage(),
+                //   ),
+                // ).then((value) {
+                //   context.read<HomePageCubit>().showAllFood();
+                // });
+              },
+              child: const CircleAvatar(
+                backgroundColor: Colors.white,
+                child: Icon(Icons.payment),
+              ),
+            ),
+          ],
         ),
       ),
     );

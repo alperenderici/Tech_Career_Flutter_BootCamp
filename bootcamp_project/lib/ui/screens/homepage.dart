@@ -16,15 +16,18 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage>
     with SingleTickerProviderStateMixin {
+  String user_name = "Alperen_Derici";
   bool isSearch = false;
   bool isFav = false;
+  bool isFavSelected = false;
   List<Food> favs = [];
+  List<Food> ulist = [];
   // late AnimationController basketAnimation;
   late AnimationController addBasketAnimation;
   bool isDescending = false;
   bool isAscending = false;
   bool isAlphabetic = false;
-  String user_name = "Alperen_Derici";
+  bool isDefault = true;
 
   @override
   void initState() {
@@ -80,7 +83,7 @@ class _HomePageState extends State<HomePage>
             ? TextField(
                 decoration: const InputDecoration(hintText: "Ara"),
                 onChanged: (searchResult) {
-                  // context.read<HomePageCubit>().search(searchResult);
+                  context.read<HomePageCubit>().search(searchResult);
                 },
               )
             : const Text("Yemekler"),
@@ -103,18 +106,24 @@ class _HomePageState extends State<HomePage>
                   },
                   icon: const Icon(Icons.search),
                 ),
-          isFav
+          isFavSelected
               ? IconButton(
+                  //isFav selected true
                   onPressed: () {
+                    // isFav = false;
                     setState(() {
+                      isFavSelected = false;
                       isFav = false;
                     });
                   },
                   icon: const Icon(Icons.favorite),
                 )
               : IconButton(
+                  //isFav selected false
                   onPressed: () {
+                    // isFav = true;
                     setState(() {
+                      isFavSelected = true;
                       isFav = true;
                     });
                   },
@@ -125,41 +134,36 @@ class _HomePageState extends State<HomePage>
             onSelected: (String result) {
               switch (result) {
                 case 'Default':
-                  print('Default clicked');
+                  setState(() {
+                    isDefault = true;
+                    isAscending = false;
+                    isDescending = false;
+                    isAlphabetic = false;
+                  });
                   break;
                 case 'Ascending':
-                  List<Food> sortAscending(List<Food> foodList) {
-                    final sortedList = foodList
-                      ..sort((food1, food2) {
-                        return food1.food_price.compareTo(
-                          food2.food_price,
-                        );
-                      });
-                    return sortedList;
-                  }
+                  setState(() {
+                    isAscending = true;
+                    isDefault = false;
+                    isDescending = false;
+                    isAlphabetic = false;
+                  });
                   break;
                 case 'Descending':
-                  List<Food> sortDescending(List<Food> foodList) {
-                    final sortedList = foodList
-                      ..sort((food1, food2) {
-                        return food2.food_price.compareTo(
-                          food1.food_price,
-                        );
-                      });
-                    return sortedList;
-                  }
-
+                  setState(() {
+                    isDescending = true;
+                    isAscending = false;
+                    isDefault = false;
+                    isAlphabetic = false;
+                  });
                   break;
                 case 'Alphabetic':
-                  List<Food> sortAlphabetic(List<Food> foodList) {
-                    final sortedList = foodList
-                      ..sort((a, b) {
-                        return a.food_name
-                            .toLowerCase()
-                            .compareTo(b.food_name.toLowerCase());
-                      });
-                    return sortedList;
-                  }
+                  setState(() {
+                    isAlphabetic = true;
+                    isAscending = false;
+                    isDescending = false;
+                    isDefault = false;
+                  });
                   break;
                 default:
               }
@@ -167,19 +171,19 @@ class _HomePageState extends State<HomePage>
             itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
               const PopupMenuItem<String>(
                 value: 'Default',
-                child: Text('Default'),
+                child: Text('Normal'),
               ),
               const PopupMenuItem<String>(
                 value: 'Ascending',
-                child: Text('Ascending Price'),
+                child: Text('Artan Fiyat'),
               ),
               const PopupMenuItem<String>(
                 value: 'Descending',
-                child: Text('Descending Price'),
+                child: Text('Azalan Fiyat'),
               ),
               const PopupMenuItem<String>(
                 value: 'Alphabetic',
-                child: Text('Alphabetic'),
+                child: Text('Alfabetik'),
               ),
             ],
           ),
@@ -188,138 +192,363 @@ class _HomePageState extends State<HomePage>
       body: BlocBuilder<HomePageCubit, List<Food>>(
         builder: (context, foodList) {
           if (foodList.isNotEmpty) {
-            return GridView.builder(
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
-              ),
-              itemCount: foodList.length,
-              itemBuilder: ((context, index) {
-                // var sortedList = sortDescending(foodList);
-                var food = foodList[index];
-                // var food = sortedList[index];
-                return GestureDetector(
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: ((context) => FoodDetailPage(
-                              food: food,
-                            )),
-                      ),
-                    ).then((value) {
-                      context.read<HomePageCubit>().showAllFood();
-                    });
-                  },
-                  child: Card(
-                    child: Stack(
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: [
-                            GestureDetector(
-                              onTap: () {
-                                setState(() {
-                                  favs.add(food);
-                                  print("${food.food_name} added favs list");
-                                  print(favs);
-                                  isFav != isFav;
-                                });
-                              },
-                              child: CircleAvatar(
-                                backgroundColor: Colors.yellow,
-                                child: isFav
-                                    ? const Icon(Icons.favorite)
-                                    : const Icon(Icons.favorite_border),
-                              ),
-                            ),
-                          ],
+            if (isFavSelected == false) {
+              return GridView.builder(
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                ),
+                itemCount: foodList.length,
+                itemBuilder: ((context, index) {
+                  if (isDefault == true) {
+                    var food = foodList[index];
+                    return _component(context, food, foodList, index);
+                  } else if (isAscending == true) {
+                    var sortedList = sortAscending(foodList);
+                    var food = sortedList[index];
+                    return _component(context, food, foodList, index);
+                  } else if (isDescending == true) {
+                    var sortedList = sortDescending(foodList);
+                    var food = sortedList[index];
+                    return _component(context, food, foodList, index);
+                  } else if (isAlphabetic == true) {
+                    var sortedList = sortAlphabetic(foodList);
+                    var food = sortedList[index];
+                    return _component(context, food, foodList, index);
+                  } else {
+                    return const Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  }
+                }),
+              );
+            } else if (isFavSelected == true && favs.isNotEmpty) {
+              return GridView.builder(
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                ),
+                itemCount: favs.length,
+                itemBuilder: ((context, index) {
+                  var food = favs[index];
+                  // return _component(context, food, foodList, index);
+                  return GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: ((context) => FoodDetailPage(
+                                food: food,
+                              )),
                         ),
-                        Column(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              children: [
-                                CircleAvatar(
-                                  backgroundColor: Colors.yellow,
-                                  child: IconButton(
-                                    onPressed: () {
-                                      showAddedIcon();
-                                      context.read<BasketCubit>().addBasket(
-                                          food.food_name,
-                                          food.food_image_name,
-                                          food.food_price.toString(),
-                                          '1',
-                                          user_name);
-                                    },
-                                    icon: const Icon(Icons.add),
-                                  ),
+                      ).then((value) {
+                        context.read<HomePageCubit>().showAllFood();
+                      });
+                    },
+                    child: Card(
+                      child: Stack(
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              Padding(
+                                padding:
+                                    const EdgeInsets.only(top: 5, right: 5),
+                                child: GestureDetector(
+                                  onTap: () {
+                                    isFav = !isFav;
+                                    favs.remove(foodList[index]);
+                                  },
+                                  child: isFav
+                                      ? const Icon(
+                                          Icons.favorite,
+                                          color: Colors.red,
+                                        )
+                                      : const Icon(
+                                          Icons.favorite_border,
+                                          color: Colors.red,
+                                        ),
                                 ),
-                              ],
-                            ),
-                          ],
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            CircleAvatar(
-                              backgroundColor: Colors.yellow,
-                              child: Text("${food.food_price}₺"),
-                            ),
-                          ],
-                        ),
-                        Column(
-                          children: [
-                            Expanded(
-                              flex: 4,
-                              child: SizedBox(
-                                height: MediaQuery.of(context).size.width / 2.5,
-                                width: MediaQuery.of(context).size.width / 2.5,
-                                child: Image.network(
-                                    "http://kasimadalan.pe.hu/yemekler/resimler/${food.food_image_name}"),
                               ),
-                            ),
-                            Expanded(
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceEvenly,
+                            ],
+                          ),
+                          Column(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.end,
                                 children: [
-                                  Text("${food.food_name}"),
+                                  Card(
+                                    shape: const CircleBorder(),
+                                    color: Colors.green,
+                                    child: IconButton(
+                                      onPressed: () {
+                                        showAddedIcon();
+                                        context.read<BasketCubit>().addBasket(
+                                            food.food_name,
+                                            food.food_image_name,
+                                            food.food_price.toString(),
+                                            '1',
+                                            user_name);
+                                      },
+                                      icon: const Icon(
+                                        Icons.add,
+                                        color: Colors.white,
+                                      ),
+                                    ),
+                                  ),
                                 ],
                               ),
-                            ),
-                          ],
-                        ),
-                      ],
+                            ],
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Card(
+                                shape: const CircleBorder(),
+                                color: Colors.green,
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Text(
+                                    "${food.food_price}₺",
+                                    style: const TextStyle(color: Colors.white),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                          Column(
+                            children: [
+                              Expanded(
+                                flex: 4,
+                                child: SizedBox(
+                                  height:
+                                      MediaQuery.of(context).size.width / 2.5,
+                                  width:
+                                      MediaQuery.of(context).size.width / 2.5,
+                                  child: Image.network(
+                                      "http://kasimadalan.pe.hu/yemekler/resimler/${food.food_image_name}"),
+                                ),
+                              ),
+                              Expanded(
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                  children: [
+                                    Text(food.food_name),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
                     ),
-                  ),
-                );
-              }),
-            );
+                  );
+                }),
+              );
+            } else {
+              return const Center(
+                child: Text("Favoriniz bulunmamaktadır."),
+              );
+            }
           } else {
-            return const Center();
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
           }
         },
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => const BasketPage(),
+      floatingActionButtonLocation:
+          FloatingActionButtonLocation.centerFloat, //*?check
+      floatingActionButton: Container(
+        padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 10.0),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            FloatingActionButton(
+              heroTag: null,
+              onPressed: () {},
+              child: const CircleAvatar(
+                backgroundColor: Colors.white,
+                child: Icon(
+                  Icons.person_outline_rounded,
+                  color: Colors.orange,
+                ),
+              ),
             ),
-          ).then((value) {
-            context.read<HomePageCubit>().showAllFood();
-          });
-        },
-        child: CircleAvatar(
-          backgroundColor: Colors.white,
-          child: LottieBuilder.asset(
-            "assets/icons/92032-basket-pack.json",
-            // controller: basketAnimation,
-          ),
+            FloatingActionButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const BasketPage(),
+                  ),
+                ).then((value) {
+                  context.read<HomePageCubit>().showAllFood();
+                });
+              },
+              child: CircleAvatar(
+                backgroundColor: Colors.white,
+                child: LottieBuilder.asset(
+                  "assets/icons/92032-basket-pack.json",
+                  // controller: basketAnimation,
+                ),
+              ),
+            ),
+          ],
         ),
       ),
     );
   }
+
+  GestureDetector _component(
+      BuildContext context, Food food, List<Food> foodList, int index) {
+    return GestureDetector(
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: ((context) => FoodDetailPage(
+                  food: food,
+                )),
+          ),
+        ).then((value) {
+          context.read<HomePageCubit>().showAllFood();
+        });
+      },
+      child: Card(
+        child: Stack(
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(top: 5, right: 5),
+                      child: GestureDetector(
+                        onTap: () {
+                          isFav = !isFav;
+                          if (isFav = true) {
+                            favs.add(foodList[index]);
+                          } else if (isFav = false) {
+                            favs.remove(foodList[index]);
+                          }
+                          for (int i = 0; i < favs.length; i++) {}
+                        },
+                        child: isFav
+                            ? const Icon(
+                                Icons.favorite,
+                                color: Colors.red,
+                              )
+                            : const Icon(
+                                Icons.favorite_border,
+                                color: Colors.red,
+                              ),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    IconButton(
+                      onPressed: () {
+                        showAddedIcon();
+                        context.read<BasketCubit>().addBasket(
+                            food.food_name,
+                            food.food_image_name,
+                            food.food_price.toString(),
+                            '1',
+                            user_name);
+                      },
+                      icon: const Icon(
+                        // Icons.add,
+                        Icons.add,
+                        color: Colors.green,
+                        // size: 25,
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Card(
+                  shape: const CircleBorder(),
+                  color: Colors.green,
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(
+                      "${food.food_price}₺",
+                      style: const TextStyle(color: Colors.white),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            Column(
+              children: [
+                Expanded(
+                  flex: 4,
+                  child: SizedBox(
+                    height: MediaQuery.of(context).size.width / 2.5,
+                    width: MediaQuery.of(context).size.width / 2.5,
+                    child: Image.network(
+                        "http://kasimadalan.pe.hu/yemekler/resimler/${food.food_image_name}"),
+                  ),
+                ),
+                Expanded(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(food.food_name),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+List<Food> sortAlphabetic(List<Food> foodList) {
+  final sortedList = foodList
+    ..sort((a, b) {
+      return a.food_name.toLowerCase().compareTo(b.food_name.toLowerCase());
+    });
+  return sortedList;
+}
+
+List<Food> sortDescending(List<Food> foodList) {
+  final sortDescendingList = foodList
+    ..sort((food1, food2) {
+      return food2.food_price.compareTo(
+        food1.food_price,
+      );
+    });
+  return sortDescendingList;
+}
+
+List<Food> sortAscending(List<Food> foodList) {
+  final sortAscendingList = foodList
+    ..sort((food1, food2) {
+      return food1.food_price.compareTo(
+        food2.food_price,
+      );
+    });
+  return sortAscendingList;
 }

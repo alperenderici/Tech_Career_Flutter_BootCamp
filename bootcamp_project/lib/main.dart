@@ -21,7 +21,7 @@ class MyApp extends StatelessWidget {
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        title: 'Material App',
+        // title: 'Material App',
         theme: projectThemeData(),
         home: const HomePage(),
       ),

@@ -1,17 +1,17 @@
 import 'dart:convert';
 import 'package:bootcamp_project/data/entity/basket_return.dart';
 import 'package:bootcamp_project/data/entity/food.dart';
-import 'package:bootcamp_project/data/entity/food_order.dart';
 import 'package:bootcamp_project/data/entity/food_return.dart';
 import 'package:dio/dio.dart';
 
 class FoodRepository {
+  static String user_name = "Alperen_Derici";
+  int sum = 0;
+
+  int get showSum => sum;
+
   List<Food> parseFoodReturn(String answer) {
     return FoodReturn.fromJson(json.decode(answer)).food;
-  }
-
-  List<FoodOrder> parseBasketFoodReturn(String answer) {
-    return BasketReturn.fromJson(json.decode(answer)).food_order;
   }
 
   Future<List<Food>> showAllFood() async {
@@ -20,14 +20,21 @@ class FoodRepository {
     return parseFoodReturn(answer.data.toString());
   }
 
-  Future<List<FoodOrder>> showBasket(String user_name) async {
+  Future<BasketReturn> showBasket() async {
     var url = "http://kasimadalan.pe.hu/yemekler/sepettekiYemekleriGetir.php";
     var data = {
       "kullanici_adi": user_name,
     };
     var answer = await Dio().post(url, data: FormData.fromMap(data));
-    print("Sepet yemek liste: ${answer.data.toString()}");
-    return parseBasketFoodReturn(answer.data.toString());
+    if (answer.data.contains("success")) {
+      for (var i
+          in BasketReturn.fromJson(json.decode(answer.data)).food_order) {
+        sum += i.food_price * i.food_order_piece;
+      }
+      return BasketReturn.fromJson(json.decode(answer.data));
+    } else {
+      return BasketReturn(food_order: [], success: 1);
+    }
   }
 
   Future<List<Food>> search(String searchWord) async {
