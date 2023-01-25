@@ -30,7 +30,7 @@ class _FoodDetailPageState extends State<FoodDetailPage>
   @override
   void initState() {
     super.initState();
-    context.read<FoodDetailPage>().food;
+    // context.read<FoodDetailPage>().food;
     addBasketAnimation = AnimationController(
       vsync: this,
     );

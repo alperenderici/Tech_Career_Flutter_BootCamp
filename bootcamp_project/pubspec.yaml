@@ -33,7 +33,6 @@ dependencies:
     sdk: flutter
   flutter_bloc: ^8.0.1 
   path: ^1.8.0 
-  #http request
   dio: ^4.0.4 
   lottie: ^2.2.0 #animated icon 
   flutter_lorem: ^2.0.0
