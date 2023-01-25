@@ -19,17 +19,67 @@ class FoodDetailPage extends StatefulWidget {
   State<FoodDetailPage> createState() => _FoodDetailPageState();
 }
 
-class _FoodDetailPageState extends State<FoodDetailPage> {
+class _FoodDetailPageState extends State<FoodDetailPage>
+    with SingleTickerProviderStateMixin {
   String user_name = "Alperen_Derici";
   int counter = 1;
   bool isFav = false;
+  late AnimationController addBasketAnimation;
   var text = lorem(paragraphs: 1, words: 15);
+
+  @override
+  void initState() {
+    super.initState();
+    context.read<FoodDetailPage>().food;
+    addBasketAnimation = AnimationController(
+      vsync: this,
+    );
+    addBasketAnimation.addStatusListener((status) async {
+      if (status == AnimationStatus.completed) {
+        Navigator.pop(context);
+        addBasketAnimation.reset();
+      }
+    });
+  }
+
+  void showAddedIcon() {
+    showDialog(
+        barrierDismissible: false,
+        context: context,
+        builder: ((context) {
+          return Dialog(
+            child: Lottie.asset(
+              "assets/icons/110118-add-to-cart.json",
+              controller: addBasketAnimation,
+              repeat: false,
+              onLoaded: (p0) {
+                addBasketAnimation.duration = p0.duration;
+                addBasketAnimation.forward();
+              },
+            ),
+          );
+        }));
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    addBasketAnimation.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.food.food_name),
+        title: Text(
+          widget.food.food_name,
+          style: const TextStyle(
+            color: Colors.white,
+            fontWeight: FontWeight.w600,
+            fontSize: 30,
+          ),
+        ),
       ),
       body: Center(
         child: Padding(
@@ -43,12 +93,19 @@ class _FoodDetailPageState extends State<FoodDetailPage> {
                 height: MediaQuery.of(context).size.height / 10,
                 width: MediaQuery.of(context).size.width / 1.5,
                 child: Card(
-                  color: Colors.blue,
+                  shape: RoundedRectangleBorder(
+                    side: const BorderSide(
+                      width: 5,
+                      color: Colors.green,
+                    ),
+                    borderRadius: BorderRadius.circular(20.0),
+                  ),
+                  // color: Colors.blue,
                   child: Padding(
-                    padding: const EdgeInsets.all(8.0),
+                    padding: const EdgeInsets.all(16.0),
                     child: Text(
                       text,
-                      style: const TextStyle(color: Colors.white),
+                      style: const TextStyle(color: Colors.green),
                     ),
                   ),
                 ),
@@ -71,16 +128,39 @@ class _FoodDetailPageState extends State<FoodDetailPage> {
                           });
                         },
                         icon: Card(
-                            color: Colors.blueGrey.shade100,
+                            shape: RoundedRectangleBorder(
+                              side: BorderSide(
+                                width: 10,
+                                color: Colors.green.shade200,
+                              ),
+                              borderRadius: BorderRadius.circular(20.0),
+                            ),
+                            // color: Colors.blueGrey.shade100,
                             child: const Padding(
-                              padding: EdgeInsets.all(8.0),
+                              padding: EdgeInsets.all(16.0),
                               child: Icon(Icons.remove),
                             )),
                       ),
                     ),
-                    Text(
-                      "$counter",
-                      style: Theme.of(context).textTheme.bodyMedium,
+                    Card(
+                      shape: RoundedRectangleBorder(
+                        side: const BorderSide(
+                          width: 5,
+                          color: Colors.green,
+                        ),
+                        borderRadius: BorderRadius.circular(50),
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.all(20.0),
+                        child: Text(
+                          "$counter",
+                          style: const TextStyle(
+                            color: Colors.black,
+                            fontWeight: FontWeight.w600,
+                            fontSize: 20,
+                          ),
+                        ),
+                      ),
                     ),
                     SizedBox(
                       height: MediaQuery.of(context).size.height / 5,
@@ -91,13 +171,20 @@ class _FoodDetailPageState extends State<FoodDetailPage> {
                             counter += 1;
                           });
                         },
-                        icon: const Card(
-                            color: Colors.green,
-                            child: Padding(
-                              padding: EdgeInsets.all(8.0),
+                        icon: Card(
+                            shape: RoundedRectangleBorder(
+                              side: const BorderSide(
+                                width: 10,
+                                color: Colors.green,
+                              ),
+                              borderRadius: BorderRadius.circular(20.0),
+                            ),
+                            // color: Colors.green,
+                            child: const Padding(
+                              padding: EdgeInsets.all(16.0),
                               child: Icon(
                                 Icons.add,
-                                color: Colors.white,
+                                color: Colors.black,
                               ),
                             )),
                       ),
@@ -109,13 +196,24 @@ class _FoodDetailPageState extends State<FoodDetailPage> {
                 height: MediaQuery.of(context).size.height / 10,
                 width: MediaQuery.of(context).size.width / 1.5,
                 child: Card(
+                  shape: RoundedRectangleBorder(
+                    side: BorderSide(
+                      width: 10,
+                      color: Colors.green.shade200,
+                    ),
+                    borderRadius: BorderRadius.circular(20.0),
+                  ),
                   color: Colors.green,
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Center(
                       child: Text(
                         "Fiyat: ${counter * widget.food.food_price}₺",
-                        style: const TextStyle(color: Colors.white),
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.w600,
+                          fontSize: 20,
+                        ),
                       ),
                     ),
                   ),
@@ -125,8 +223,18 @@ class _FoodDetailPageState extends State<FoodDetailPage> {
                 height: MediaQuery.of(context).size.height / 10,
                 width: MediaQuery.of(context).size.width / 1.5,
                 child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    shape: RoundedRectangleBorder(
+                      side: BorderSide(
+                        width: 10,
+                        color: Colors.green.shade200,
+                      ),
+                      borderRadius: BorderRadius.circular(20.0),
+                    ),
+                  ),
                   onPressed: () {
                     for (int i = 0; i < counter; i++) {
+                      showAddedIcon();
                       context.read<BasketCubit>().addBasket(
                           widget.food.food_name,
                           widget.food.food_image_name,
@@ -135,7 +243,14 @@ class _FoodDetailPageState extends State<FoodDetailPage> {
                           user_name);
                     }
                   },
-                  child: const Text("Sepete ekle"),
+                  child: const Text(
+                    "Sepete ekle",
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.w600,
+                      fontSize: 20,
+                    ),
+                  ),
                 ),
               ),
             ],

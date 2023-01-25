@@ -16,4 +16,8 @@ class HomePageCubit extends Cubit<List<Food>> {
     var list = await foodRepo.search(searchWord);
     emit(list);
   }
+
+  // bool showSum() {
+  //   return foodRepo.showFavFood();
+  // }
 }

@@ -33,10 +33,6 @@ class _HomePageState extends State<HomePage>
   void initState() {
     super.initState();
     context.read<HomePageCubit>().showAllFood();
-    // basketAnimation = AnimationController(
-    //   vsync: this,
-    //   // duration: const Duration(seconds: 3),
-    // );
     addBasketAnimation = AnimationController(
       vsync: this,
     );
@@ -86,14 +82,20 @@ class _HomePageState extends State<HomePage>
                   context.read<HomePageCubit>().search(searchResult);
                 },
               )
-            : const Text("Yemekler"),
+            : const Text(
+                "Yemekler",
+                style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.w600,
+                  fontSize: 30,
+                ),
+              ),
         actions: [
           isSearch
               ? IconButton(
                   onPressed: () {
                     setState(() {
                       isSearch = false;
-                      context.read<HomePageCubit>().showAllFood();
                     });
                   },
                   icon: const Icon(Icons.cancel),
@@ -102,6 +104,7 @@ class _HomePageState extends State<HomePage>
                   onPressed: () {
                     setState(() {
                       isSearch = true;
+                      context.read<HomePageCubit>().showAllFood();
                     });
                   },
                   icon: const Icon(Icons.search),
@@ -333,7 +336,14 @@ class _HomePageState extends State<HomePage>
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceEvenly,
                                   children: [
-                                    Text(food.food_name),
+                                    Text(
+                                      food.food_name,
+                                      style: const TextStyle(
+                                        color: Colors.black,
+                                        fontWeight: FontWeight.w600,
+                                        fontSize: 20,
+                                      ),
+                                    ),
                                   ],
                                 ),
                               ),
@@ -468,10 +478,9 @@ class _HomePageState extends State<HomePage>
                             user_name);
                       },
                       icon: const Icon(
-                        // Icons.add,
                         Icons.add,
                         color: Colors.green,
-                        // size: 25,
+                        size: 35,
                       ),
                     ),
                   ],
@@ -488,7 +497,12 @@ class _HomePageState extends State<HomePage>
                     padding: const EdgeInsets.all(8.0),
                     child: Text(
                       "${food.food_price}₺",
-                      style: const TextStyle(color: Colors.white),
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.w500,
+                        fontSize: 18,
+                      ),
+                      // style: const TextStyle(color: Colors.white),
                     ),
                   ),
                 ),
@@ -511,7 +525,14 @@ class _HomePageState extends State<HomePage>
                     children: [
                       Padding(
                         padding: const EdgeInsets.all(8.0),
-                        child: Text(food.food_name),
+                        child: Text(
+                          food.food_name,
+                          style: const TextStyle(
+                            color: Colors.black,
+                            fontWeight: FontWeight.w600,
+                            fontSize: 20,
+                          ),
+                        ),
                       ),
                     ],
                   ),

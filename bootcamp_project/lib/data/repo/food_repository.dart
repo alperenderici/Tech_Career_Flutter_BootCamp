@@ -7,8 +7,10 @@ import 'package:dio/dio.dart';
 class FoodRepository {
   static String user_name = "Alperen_Derici";
   int sum = 0;
+  bool isFav = false;
 
   int get showSum => sum;
+  bool get showFav => isFav;
 
   List<Food> parseFoodReturn(String answer) {
     return FoodReturn.fromJson(json.decode(answer)).food;
@@ -19,6 +21,21 @@ class FoodRepository {
     var answer = await Dio().get(url);
     return parseFoodReturn(answer.data.toString());
   }
+
+  // Future<FoodReturn> showFavFood() async {
+  //   var url = "http://kasimadalan.pe.hu/yemekler/tumYemekleriGetir.php";
+  //   var answer = await Dio().get(url);
+  //   if (answer.data.contains("success")) {
+
+  //     for (var i
+  //         in FoodReturn.fromJson(json.decode(answer.data)).food) {
+  //       isFav != isFav;
+  //     }
+  //     return BasketReturn.fromJson(json.decode(answer.data)).food_order;
+  //   } else {
+  //     return parseFoodReturn(answer.data.toString());
+  //   }
+  // }
 
   Future<BasketReturn> showBasket() async {
     var url = "http://kasimadalan.pe.hu/yemekler/sepettekiYemekleriGetir.php";

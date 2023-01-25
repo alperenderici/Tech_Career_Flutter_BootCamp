@@ -66,9 +66,21 @@ class _BasketPageState extends State<BasketPage>
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const Text("Sepet"),
+              const Text(
+                "Sepet",
+                style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.w600,
+                  fontSize: 30,
+                ),
+              ),
               Text(
                 "Tutar: ${context.read<BasketCubit>().showSum()}₺",
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.w600,
+                  fontSize: 30,
+                ),
               ),
             ],
           ),
@@ -77,12 +89,11 @@ class _BasketPageState extends State<BasketPage>
       body: BlocBuilder<BasketCubit, BasketReturn>(
         builder: (context, foodList) {
           List<FoodOrder> basketFoodList = foodList.food_order;
-          if (foodList.success != 0) {
+          if (foodList.success != 0 && basketFoodList.isNotEmpty) {
             // List distinctList = basketFoodList.toSet().toList();
             // for (int i = 0; i < basketFoodList.length; i++) {
             //   basketFoodList.remove(foodList.food_order);
             // }
-
             return ListView.builder(
               itemCount: basketFoodList.length,
               itemBuilder: ((context, index) {
@@ -208,9 +219,16 @@ class _BasketPageState extends State<BasketPage>
                 );
               }),
             );
-          } else if (foodList.food_order.isEmpty) {
+          } else if (basketFoodList.isEmpty) {
             return const Center(
-              child: Text("Go back to fill your basket"),
+              child: Text(
+                "Sepetiniz boş gözükmekte",
+                style: TextStyle(
+                  color: Colors.black,
+                  fontWeight: FontWeight.w600,
+                  fontSize: 20,
+                ),
+              ),
             );
           } else {
             return const Center(
