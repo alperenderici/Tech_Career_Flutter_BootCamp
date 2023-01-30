@@ -5,7 +5,7 @@
 <h3 align="center">Tech Career Flutter BootCamp</h3>
 
   <p align="center">
-    project_description
+    Flutter (cubit)
     <br />
     <a href="https://github.com/alperenderici/Tech_Career_Flutter_BootCamp/tree/main/bootcamp_project"><strong>Final Project»</strong></a>
     <br />
