@@ -19,7 +19,6 @@
 
 
 
-<!-- TABLE OF CONTENTS -->
 
   <summary>Table of Contents</summary>
   <ol>
@@ -48,7 +47,6 @@
 
 
 
-<!-- ABOUT THE PROJECT -->
 ## About The Project
 
 This mobile app project was developed as the final project of a Tech Career Flutter Bootcamp education program. It is designed to showcase the skills and knowledge acquired during the course of the program. The project aims to made by bloc-cubit state managament. The main objectives are: 1- Viewing the list of dishes on the homepage. 2- Switch to the detail page. 3- Adding 1 ayran to the cart from the detail page. 4- View the cart. 5- Availability of delete all the dishes in the basket one by one. 6- Showing the extra features you have added to the application. More than, providing a user-friendly and intuitive interface is also important
@@ -75,17 +73,17 @@ The webservices (API) links gives the dataset as a JSON (Adding-deleting food to
 
 ## Features
 
-|<img name='list-products' src="https://github.com/alperenderici/Tech_Career_Flutter_BootCamp/blob/main/bootcamp_project/project_images/img1.png" width="200" height="400" />| <img name='list-products-by-filters' src="https://github.com/alperenderici/Tech_Career_Flutter_BootCamp/blob/main/bootcamp_project/project_images/img2.png" width="200" height="400" /> | <img src="https://github.com/alperenderici/Tech_Career_Flutter_BootCamp/blob/main/bootcamp_project/project_images/img3.png" width="200" height="400" /> | <img src="https://github.com/alperenderici/Tech_Career_Flutter_BootCamp/blob/main/bootcamp_project/project_images/img4.png" width="200" height="400" /> | <img src="https://github.com/alperenderici/Tech_Career_Flutter_BootCamp/blob/main/bootcamp_project/project_images/img5.png" width="200" height="400" /> |
+|<img name='list-products' src="https://github.com/alperenderici/Tech_Career_Flutter_BootCamp/blob/main/bootcamp_project/project_images/img1.png" width="250" height="400" />| <img name='list-products-by-filters' src="https://github.com/alperenderici/Tech_Career_Flutter_BootCamp/blob/main/bootcamp_project/project_images/img2.png" width="250" height="400" /> | <img src="https://github.com/alperenderici/Tech_Career_Flutter_BootCamp/blob/main/bootcamp_project/project_images/img3.png" width="250" height="400" /> | <img src="https://github.com/alperenderici/Tech_Career_Flutter_BootCamp/blob/main/bootcamp_project/project_images/img4.png" width="250" height="400" /> | <img src="https://github.com/alperenderici/Tech_Career_Flutter_BootCamp/blob/main/bootcamp_project/project_images/img5.png" width="250" height="400" /> |
 |:--:|:--:|:--:|:--:|:--:|
 | *List Products* | *Sort Normal* | *Ascending Price* | *Descending Price* | *Alphabetic* |
-|<img name='fav' src="https://github.com/alperenderici/Tech_Career_Flutter_BootCamp/blob/main/bootcamp_project/project_images/img6.png" width="200" height="400" />| <img name='basket' src="https://github.com/alperenderici/Tech_Career_Flutter_BootCamp/blob/main/bootcamp_project/project_images/img7.png" width="200" height="400" /> | <img src="https://github.com/alperenderici/Tech_Career_Flutter_BootCamp/blob/main/bootcamp_project/project_images/img8.png" width="200" height="400" /> | <img src="https://github.com/alperenderici/Tech_Career_Flutter_BootCamp/blob/main/bootcamp_project/project_images/img9.png" width="200" height="400" /> | <img name='price' src="https://github.com/alperenderici/Tech_Career_Flutter_BootCamp/blob/main/bootcamp_project/project_images/img10.png" width="200" height="400" /> |
+|<img name='fav' src="https://github.com/alperenderici/Tech_Career_Flutter_BootCamp/blob/main/bootcamp_project/project_images/img6.png" width="250" height="400" />| <img name='basket' src="https://github.com/alperenderici/Tech_Career_Flutter_BootCamp/blob/main/bootcamp_project/project_images/img7.png" width="250" height="400" /> | <img src="https://github.com/alperenderici/Tech_Career_Flutter_BootCamp/blob/main/bootcamp_project/project_images/img8.png" width="250" height="400" /> | <img src="https://github.com/alperenderici/Tech_Career_Flutter_BootCamp/blob/main/bootcamp_project/project_images/img9.png" width="250" height="400" /> | <img name='price' src="https://github.com/alperenderici/Tech_Career_Flutter_BootCamp/blob/main/bootcamp_project/project_images/img10.png" width="250" height="400" /> |
 | *Favourites* | *Basket(Cart)* | *Add Cart* | *Confirm Animation* | *List Card Items* |
-|<img name='add-delete-basket' src="https://github.com/alperenderici/Tech_Career_Flutter_BootCamp/blob/main/bootcamp_project/project_images/img11.png" width="200" height="400" />| <img src="https://github.com/alperenderici/Tech_Career_Flutter_BootCamp/blob/main/bootcamp_project/project_images/img12.png" width="200" height="400" /> |
+|<img name='add-delete-basket' src="https://github.com/alperenderici/Tech_Career_Flutter_BootCamp/blob/main/bootcamp_project/project_images/img11.png" width="250" height="400" />| <img src="https://github.com/alperenderici/Tech_Career_Flutter_BootCamp/blob/main/bootcamp_project/project_images/img12.png" width="250" height="400" /> |
 | *Delete Item* | *Delete Animation* |
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
-<!-- ACKNOWLEDGMENTS -->
+
 ## Acknowledgments
 
 * [techcareer.net](https://www.techcareer.net/)
@@ -97,8 +95,6 @@ The webservices (API) links gives the dataset as a JSON (Adding-deleting food to
 
 
 
-<!-- MARKDOWN LINKS & IMAGES -->
-<!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
 [flutter_bloc-url]: https://pub.dev/packages/flutter_bloc
 [Flutter.js]: https://storage.googleapis.com/cms-storage-bucket/ec64036b4eacc9f3fd73.svg
 [Flutter-url]: https://flutter.dev/
